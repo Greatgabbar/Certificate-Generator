@@ -3,7 +3,15 @@ const multer = require('multer');
 const ejs = require('ejs');
 const path = require('path');
 const Jimp = require('jimp');
+const bodyParser=require('body-parser');
 
+// Init app
+const app = express();
+
+app.use(bodyParser.urlencoded({ extended: false }))
+ 
+// parse application/json
+app.use(bodyParser.json())
 
 // Set The Storage Engine
 const storage = multer.diskStorage({
@@ -38,8 +46,6 @@ function checkFileType(file, cb){
   }
 }
 
-// Init app
-const app = express();
 
 // EJS
 app.set('view engine', 'ejs');
@@ -71,25 +77,23 @@ app.post('/upload', (req, res) => {
   });
 });
 
-// app.post('/edited',(req,res)=>{
+app.post('/api/coordinates',(req,res)=>{
+console.log(req.body);
+Jimp.read(`./public/${req.body[3].file}`)
+  .then(image => {
+    Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(font => {
+        // console.log(data);
+        image.print(font,req.body[0].name.x,req.body[0].name.y,{text:req.body[0].value},req.body[0].name.w);
+        image.print(font,req.body[1].position.x,req.body[1].position.y,{text:req.body[1].value},req.body[1].position.w);
+        image.print(font,req.body[2].project.x,req.body[2].project.y,{text:req.body[2].value},req.body[2].project.w);
+      image.write(`./public/final/${req.body[3].file}`);
+    });
+  })
+  .catch(err => {
+    console.log(err);
+  });
 
-// Jimp.read(req)
-//   .then(image => {
-//     Jimp.loadFont(Jimp.FONT_SANS_32_WHITE).then(font => {
-//       let x=image.getWidth()/2;
-//       let y=10;
-//       console.log(x,y);
-//       image.print(font,0,10,{text:'Shubham Trivedi',alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER},image.getWidth());
-//       image.print(font,0,50,{text:'Winner',alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER},image.getWidth());
-//       image.print(font,0,90,{text:'Fuddu Detector',alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER},image.getWidth());
-//       image.write(req.file.filename);
-//     });
-//   })
-//   .catch(err => {
-//     console.log(err);
-//   });
-
-// })
+})
 
 const port = 3000;
 
