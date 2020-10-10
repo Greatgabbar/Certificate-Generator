@@ -13,14 +13,42 @@
 </head>
 
 <body>
+  <nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Global Cert</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="#">Create Certifcate Online</a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="sidenav">
+        <li><a href="#">Create Certificate Online</a></li>
+      </ul>
+      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br><br>
+      <h1 class="header center blue-text">Global Cert</h1>
+      <div class="row center">
+        <h5 class="header col s12 light">Global Certificates is an online platform for hosting and distribution of e-verifiable certificates</h5>
+      </div>
+      <br><br>
+
+    </div>
+
+    <br><br>
+    <br><br>
+  </div>
   <div class="container">
-    <h1>File Upload</h1>
-    <%= typeof msg != 'undefined' ? msg : '' %>
-    <form action="/upload" method="POST" enctype="multipart/form-data">
-      <div class="file-field input-field">
-        <div class="btn grey">
-          <span>File</span>
-          <input name="myImage" type="file">
+    <div class="row center">
+        <h4 class="header col s12 bold">Upload Your Certifcate Template</h4>
+      </div>
+      <%= typeof msg != 'undefined' ? msg : '' %>
+      <form action="/upload" method="POST" enctype="multipart/form-data">
+    <div class="file-field input-field">
+      <div class="btn">
+        <span>Upload</span>
+        <input name="myImage" type="file">
         </div>
         <div class="file-path-wrapper">
           <input class="file-path validate" type="text">
@@ -28,10 +56,10 @@
       </div>
       <button type="submit" class="btn">Submit</button>
     </form>
-    <br>
+  <div class="center">
     <img id="target" src="<%= typeof file != 'undefined' ? file : '' %>" class="responsive-img">
   </div>
-</body>
+</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 <script>
   $(document).ready(function () {
