@@ -78,7 +78,6 @@ app.post('/upload', (req, res) => {
 });
 
 app.post('/api/coordinates',(req,res)=>{
-console.log(req.body);
 Jimp.read(`./public/${req.body[3].file}`)
   .then(image => {
     Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(font => {
@@ -87,12 +86,22 @@ Jimp.read(`./public/${req.body[3].file}`)
         image.print(font,req.body[1].position.x,req.body[1].position.y,{text:req.body[1].value},req.body[1].position.w);
         image.print(font,req.body[2].project.x,req.body[2].project.y,{text:req.body[2].value},req.body[2].project.w);
       image.write(`./public/final/${req.body[3].file}`);
+      console.log("going...............");
     });
+    res.json('data recieved');
   })
   .catch(err => {
     console.log(err);
   });
+  
+})
 
+app.get('/final',(req,res)=>{
+  res.render('final');
+})
+
+app.get('/hello',(req,res)=>{
+  res.render('hello');
 })
 
 const port = 3000;

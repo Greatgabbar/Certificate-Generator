@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/0.9.15/css/jquery.Jcrop.css">
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/0.9.15/js/jquery.Jcrop.js"></script>
@@ -151,20 +152,22 @@
       }
     })    
     })
-   document.getElementById('proceed').addEventListener('click',async (e)=>{
+    document.getElementById('proceed').addEventListener('click',async (e)=>{
     const filename={
       file : "<%= typeof file != 'undefined' ? file : '' %>"
     }
+    localStorage.setItem('file',filename.file);
     arr.push(filename);
     const res=await fetch('/api/coordinates',{
         method:'POST',
         headers : {
-          'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          'Accept': 'application/json'
         },
         body:JSON.stringify(arr)
       });
     const datal=await res.json();
-    console.log(datal);
+    window.location.replace("/final");
    })
   
   })
