@@ -59,21 +59,108 @@
       <button type="submit" class="btn">Submit</button>
     </form>
     <%if(typeof flag != 'undefined'){%>
-    <div class="center">
-      <img id="target" src="<%= typeof file != 'undefined' ? file : '' %>" class="responsive-img">
+    <div class="row">
+      <div class="col s12">
+        <div class="row center">
+          <h4 class="header col s12 bold">Edit Your Certifcate</h4>
+        </div>
+      </div>
+      <!-- <div class="col s12 m4 l2"><p>s12 m4</p></div> -->
+      <div class="col s12 m4 l8">
+        <img id="target" src="<%= typeof file != 'undefined' ? file : '' %>" class="responsive-img">
+      </div>
+      <div class="col s12 m4 l2">
+        <div class="row">
+          <form class="col s12">
+            <div class="row">
+              <div class="input-field col s12">
+                <input placeholder="Atharv Jakson" id="first_name" type="text" class="validate">
+                <label for="first_name">Name</label>
+                <button class="btn waves-effect waves-light" type="submit" name="action">Selected
+
+                </button>
+              </div>
+              <div class="input-field col s12">
+                <input placeholder="Project Name" id="first_name" type="text" class="validate">
+                <label for="first_name">Project Name</label>
+                <button class="btn waves-effect waves-light" type="submit" name="action">Selected
+
+                </button>
+              </div>
+              <div class="input-field col s12">
+                <input placeholder="1st,2nd..." id="first_name" type="text" class="validate">
+                <label for="first_name">Position</label>
+                <button class="btn waves-effect waves-light" type="submit" name="action">Selected
+
+                </button>
+              </div>
+            </div>
+        </div>
+        </form>
+      </div>
+    </div>
+    <div class="row center">
+      <button class="btn waves-effect waves-light" type="submit" name="action">Done!
+        <i class="material-icons right">send</i>
+      </button>
     </div>
   </div>
   <%}%>
+  </div>
 <script src="js/materialize.js"></script>
   <script src="js/init.js"></script>
 <script>
   $(document).ready(function () {
+    const arr=[];
+    document.getElementById('btn-1').addEventListener("click",(e)=>{
     $('#target').Jcrop({
       onSelect: function (c) {
-        console.log(c);
+        const obj={
+          name : c
+        }
+        arr.push(obj);
+        console.log(arr);
       }
+    })    
     })
+    document.getElementById('btn-2').addEventListener("click",(e)=>{
+    $('#target').Jcrop({
+      onSelect: function (c) {
+        const obj={
+          position : c
+        }
+        arr.push(obj);
+        console.log(arr);
+      }
+    })    
+    })
+    document.getElementById('btn-3').addEventListener("click",(e)=>{
+    $('#target').Jcrop({
+      onSelect: function (c) {
+        const obj={
+          project : c
+        }
+        arr.push(obj);
+        console.log(arr);
+      }
+    })    
+    })
+   document.getElementById('proceed').addEventListener('click',async (e)=>{
+    
+    console.log()
+    
+    const res=await fetch('/api/coordinates',{
+        method:'POST',
+        headers : {
+          'Content-Type':'application/json'
+        },
+        body:JSON.stringify(data)
+      });
+    const datal=await res.json();
+    console.log(datal);
+   })
   })
+
 </script>
 
 </html>
