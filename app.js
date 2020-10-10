@@ -63,7 +63,8 @@ app.post('/upload', (req, res) => {
       } else {
         res.render('index', {
           msg: 'File Uploaded!',
-          file: `uploads/${req.file.filename}`
+          file: `uploads/${req.file.filename}`,
+          flag : true
         });
       }
     }
