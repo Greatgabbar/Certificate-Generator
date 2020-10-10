@@ -1,32 +1,9 @@
-// const express = require('express');
-// var Jimp = require('jimp');
-// const app = express();
-
-// Jimp.read('1.jpeg')
-//   .then(image => {
-//     Jimp.loadFont(Jimp.FONT_SANS_32_WHITE).then(font => {
-//       let x=image.getWidth()/2;
-//       let y=10;
-//       console.log(x,y);
-//       image.print(font,0,10,{text:'Shubham Trivedi',alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER},image.getWidth());
-//       image.print(font,0,50,{text:'Winner',alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER},image.getWidth());
-//       image.print(font,0,90,{text:'Fuddu Detector',alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER},image.getWidth());
-//       image.write('ddqa.jpg');
-//     });
-//   })
-//   .catch(err => {
-//     console.log(err);
-//   });
-
-
-// app.listen(4000, () => {
-//   console.log('server is starting at 4000');
-// })
-
 const express = require('express');
 const multer = require('multer');
 const ejs = require('ejs');
 const path = require('path');
+const Jimp = require('jimp');
+
 
 // Set The Storage Engine
 const storage = multer.diskStorage({
@@ -92,6 +69,26 @@ app.post('/upload', (req, res) => {
     }
   });
 });
+
+// app.post('/edited',(req,res)=>{
+
+// Jimp.read(req)
+//   .then(image => {
+//     Jimp.loadFont(Jimp.FONT_SANS_32_WHITE).then(font => {
+//       let x=image.getWidth()/2;
+//       let y=10;
+//       console.log(x,y);
+//       image.print(font,0,10,{text:'Shubham Trivedi',alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER},image.getWidth());
+//       image.print(font,0,50,{text:'Winner',alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER},image.getWidth());
+//       image.print(font,0,90,{text:'Fuddu Detector',alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER},image.getWidth());
+//       image.write(req.file.filename);
+//     });
+//   })
+//   .catch(err => {
+//     console.log(err);
+//   });
+
+// })
 
 const port = 3000;
 
