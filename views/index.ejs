@@ -117,11 +117,7 @@
       const val=document.getElementById('in-1').value;
     $('#target').Jcrop({
       onSelect: function (c) {
-        const obj={
-          name : c,
-          value : val
-        }
-        arr.push(obj);
+        arr.push(c);
         console.log(arr);
       }
     })    
@@ -130,11 +126,7 @@
       const val=document.getElementById('in-2').value;
       $('#target').Jcrop({
       onSelect: function (c) {
-        const obj={
-          position : c,
-          value : val
-        }
-        arr.push(obj);
+        arr.push(c);
         console.log(arr);
       }
     })    
@@ -143,11 +135,7 @@
       const val=document.getElementById('in-3').value;
     $('#target').Jcrop({
       onSelect: function (c) {
-        const obj={
-          project : c,
-          value : val
-        }
-        arr.push(obj);
+        arr.push(c);
         console.log(arr);
       }
     })    
@@ -160,13 +148,16 @@
     localStorage.setItem('file',filename.file);
     localStorage.setItem('csv',filename.file);
     arr.push(filename);
+    const data={
+      ...arr
+    }
     const res=await fetch('/api/coordinates',{
         method:'POST',
         headers : {
           'Content-Type':'application/json',
           'Accept': 'application/json'
         },
-        body:JSON.stringify(arr)
+        body:JSON.stringify(data)
       });
     const datal=await res.json();
     window.location.replace("/final");

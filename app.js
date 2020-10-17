@@ -82,8 +82,10 @@ app.post('/upload',(req, res) => {
 });
 
 app.post('/api/coordinates', (req, res) => {
-
-  console.log(req.body);
+  console.log(`req.body['3'].csv                          ./public/req.body['3'].csv`);
+  csv().fromFile(`./public/${req.body['3'].csv}`).then((data)=>{
+    console.log(data);
+  })
   Jimp.read(`./public/${req.body[3].file}`)
     .then(image => {
       Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(font => {
