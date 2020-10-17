@@ -86,7 +86,6 @@
     $(document).ready(function () {
       const arr = [];
       document.getElementById('btn-1').addEventListener("click", (e) => {
-        const val = document.getElementById('in-1').value;
         $('#target').Jcrop({
           onSelect: function (c) {
             arr.push(c);
@@ -95,7 +94,6 @@
         })
       })
       document.getElementById('btn-2').addEventListener("click", (e) => {
-        const val = document.getElementById('in-2').value;
         $('#target').Jcrop({
           onSelect: function (c) {
             arr.push(c);
@@ -104,7 +102,6 @@
         })
       })
       document.getElementById('btn-3').addEventListener("click", (e) => {
-        const val = document.getElementById('in-3').value;
         $('#target').Jcrop({
           onSelect: function (c) {
             arr.push(c);
@@ -132,7 +129,8 @@
           body: JSON.stringify(data)
         });
         const datal = await res.json();
-        console.log(datal)
+        localStorage.setItem('file',datal.file);
+        localStorage.setItem('length',datal.len);
         await window.location.replace("/final");
       })
 
