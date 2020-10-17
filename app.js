@@ -70,12 +70,9 @@ app.post('/upload', (req, res) => {
           msg: 'Error: No File Selected!'
         });
       } else {
-        console.log(req.files)
-        res.render('index', {
-          msg: 'File Uploaded!',
+        res.render('edit', {
           file: `uploads/${req.files[1].filename}`,
           csv: `uploads/${req.files[0].filename}`,
-          flag: true
         });
       }
     }
@@ -89,9 +86,9 @@ app.post('/api/coordinates', (req, res) => {
         .then(image => {
           Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(font => {
             // console.log(req.body);
-            image.print(font, req.body['0'].x, req.body['0'].y + 20, { text: cred.Name }, req.body[0].w);
-            image.print(font, req.body['1'].x, req.body['1'].y + 25, { text: cred.Position }, req.body[1].w);
-            image.print(font, req.body[2].x, req.body[2].y + 25, { text: cred.project }, req.body[2].w);
+            image.print(font, req.body['0'].x, req.body['0'].y + 10, { text: cred.Name }, req.body[0].w);
+            image.print(font, req.body['1'].x, req.body['1'].y + 10, { text: cred.Position }, req.body[1].w);
+            image.print(font, req.body[2].x, req.body[2].y + 10, { text: cred.project }, req.body[2].w);
             image.write(`./public/final/${i}.png`);
           });
         })
