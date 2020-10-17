@@ -159,8 +159,9 @@
         },
         body:JSON.stringify(data)
       });
-    const datal=await res.json();
-    window.location.replace("/final");
+    const datal = await res.json();
+    console.log(datal)
+   await window.location.replace("/final");
    })
   
   })

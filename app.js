@@ -5,6 +5,7 @@ const path = require('path');
 const Jimp = require('jimp');
 const bodyParser = require('body-parser');
 const csv = require('csvtojson');
+const { createDecipher } = require('crypto');
 
 // Init app
 const app = express();
@@ -36,15 +37,15 @@ function checkFileType(file, cb) {
   // Allowed ext
   const filetypes = /jpeg|jpg|png|csv|gif/;
   // Check ext
-    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-    // Check mime
-    const mimetype = filetypes.test(file.mimetype);
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+  // Check mime
+  const mimetype = filetypes.test(file.mimetype);
 
-    if (mimetype && extname) {
-      return cb(null, true);
-    } else {
-      cb('Error: Images Only!');
-    }
+  if (mimetype && extname) {
+    return cb(null, true);
+  } else {
+    cb('Error: Images Only!');
+  }
 }
 
 
@@ -56,8 +57,8 @@ app.use(express.static('./public'));
 
 app.get('/', (req, res) => res.render('index'));
 
-app.post('/upload',(req, res) => {
-   upload(req, res, (err) => {
+app.post('/upload', (req, res) => {
+  upload(req, res, (err) => {
     if (err) {
       res.render('index', {
         msg: err
@@ -82,25 +83,24 @@ app.post('/upload',(req, res) => {
 });
 
 app.post('/api/coordinates', (req, res) => {
-  console.log(`req.body['3'].csv                          ./public/req.body['3'].csv`);
-  csv().fromFile(`./public/${req.body['3'].csv}`).then((data)=>{
-    console.log(data);
-  })
-  Jimp.read(`./public/${req.body[3].file}`)
-    .then(image => {
-      Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(font => {
-        // console.log(data);
-        image.print(font, req.body[0].name.x, req.body[0].name.y, { text: req.body[0].value }, req.body[0].name.w);
-        image.print(font, req.body[1].position.x, req.body[1].position.y, { text: req.body[1].value }, req.body[1].position.w);
-        image.print(font, req.body[2].project.x, req.body[2].project.y, { text: req.body[2].value }, req.body[2].project.w);
-        image.write(`./public/final/${req.body[3].file}`);
-        console.log("going...............");
-      });
-      res.json('data recieved');
+  csv().fromFile(`./public/${req.body['3'].csv}`).then((data) => {
+    data.forEach((cred,i) => {
+      Jimp.read(`./public/${req.body[3].file}`)
+        .then(image => {
+          Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(font => {
+            // console.log(req.body);
+            image.print(font, req.body['0'].x, req.body['0'].y + 20, { text: cred.Name }, req.body[0].w);
+            image.print(font, req.body['1'].x, req.body['1'].y + 25, { text: cred.Position }, req.body[1].w);
+            image.print(font, req.body[2].x, req.body[2].y + 25, { text: cred.project }, req.body[2].w);
+            image.write(`./public/final/${i}.png`);
+          });
+        })
     })
-    .catch(err => {
-      console.log(err);
-    });
+    res.status(200).json('Images made');
+  })
+  .catch(err => {
+    console.log(err);
+  });
 
 })
 
