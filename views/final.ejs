@@ -42,16 +42,15 @@
     </div>
       <!-- <div class="col s12 m4 l2"><p>s12 m4</p></div> -->
       <div class="col s12 m4 l8">
-        <img id="target" src="<%= typeof file != 'undefined' ? file : '' %>" class="responsive-img">
+        <img id="target" class="responsive-img">
       </div>
   </div>
   </div>
     <script src="/js/materialize.js"></script>
   <script src="/js/init.js"></script>
   <script>
-    $(document).ready(function () {
-      const file = localStorage.getItem(`file`);
-      console.log(file);
+    window.addEventListener('DOMContentLoaded',(e)=>{
+      const file=localStorage.getItem('file');
       document.getElementById('target').src=`/final/${file}`;
     })
   </script>

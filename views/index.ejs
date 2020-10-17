@@ -51,10 +51,10 @@
       <div class="file-field input-field">
         <div class="btn">
           <span>Upload</span>
-          <input name="myImage" type="file">
+          <input name="myImage" type="file" multiple >
         </div>
         <div class="file-path-wrapper">
-          <input class="file-path validate" type="text">
+          <input class="file-path validate" type="text" placeholder="Upload template and csv file">
         </div>
       </div>
       <button type="submit" class="btn">Submit</button>
@@ -154,9 +154,11 @@
     })
     document.getElementById('proceed').addEventListener('click',async (e)=>{
     const filename={
-      file : "<%= typeof file != 'undefined' ? file : '' %>"
+      file : "<%= typeof file != 'undefined' ? file : '' %>",
+      csv : "<%= typeof csv != 'undefined' ? csv : '' %>"
     }
     localStorage.setItem('file',filename.file);
+    localStorage.setItem('csv',filename.file);
     arr.push(filename);
     const res=await fetch('/api/coordinates',{
         method:'POST',
