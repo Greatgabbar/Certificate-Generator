@@ -4,6 +4,7 @@ const ejs = require('ejs');
 const path = require('path');
 const Jimp = require('jimp');
 const bodyParser=require('body-parser');
+const csv=require('csvtojson');
 
 // Init app
 const app = express();
@@ -78,6 +79,7 @@ app.post('/upload', (req, res) => {
 });
 
 app.post('/api/coordinates',(req,res)=>{
+  
 Jimp.read(`./public/${req.body[3].file}`)
   .then(image => {
     Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(font => {
