@@ -84,14 +84,14 @@ app.post('/api/coordinates', (req, res) => {
     const name= req.body['3'].file.split('.').slice(0,-1).join('.');
     let count=0;
     data.forEach((cred,i) => {
+      count++;
       Jimp.read(`./public/${req.body[3].file}`)
         .then(image => {
           Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(font => {
             // console.log(req.body);
-            count++;
             image.print(font, req.body['0'].x, req.body['0'].y + 10, { text: cred.Name }, req.body[0].w);
-            image.print(font, req.body['1'].x, req.body['1'].y + 10, { text: cred.Position }, req.body[1].w);
-            image.print(font, req.body[2].x, req.body[2].y + 10, { text: cred.project }, req.body[2].w);
+            image.print(font, req.body['1'].x, req.body['1'].y, { text: cred.Position }, req.body[1].w);
+            image.print(font, req.body[2].x, req.body[2].y, { text: cred.project }, req.body[2].w);
             image.write(`./public/final/${name}/${i}.png`);
           });
         })
@@ -109,6 +109,24 @@ app.post('/api/coordinates', (req, res) => {
 
 app.get('/final', (req, res) => {
   res.render('final');
+})
+
+String.prototype.replaceAt = function(index, replacement) {
+  return this.substr(0, index) + replacement + this.substr(index + replacement.length);
+}
+
+app.get('/api/:name',(req,res)=>{
+  let ename=req.params.name;
+  const file=ename.lastIndexOf('-'); 
+  const filename=ename.replaceAt(file,'/')
+  console.log(filename)
+  res.download(__dirname + `/public/final/uploads/${filename}`, 'Download.png', (err) => {
+    if (err) {
+      res.status(500).send({
+        message: "Could not download the file. " + err,
+      });
+    }
+  });
 })
 
 app.get('/hello', (req, res) => {
