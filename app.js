@@ -120,7 +120,7 @@ app.get('/api/:name',(req,res)=>{
   const file=ename.lastIndexOf('-'); 
   const filename=ename.replaceAt(file,'/')
   console.log(filename)
-  res.download(`./public/final/upload/${filename}`, 'Download.png', (err) => {
+  res.download(__dirname + `/public/final/uploads/${filename}`, 'Download.png', (err) => {
     if (err) {
       res.status(500).send({
         message: "Could not download the file. " + err,

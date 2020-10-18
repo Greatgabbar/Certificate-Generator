@@ -40,41 +40,39 @@
     <div class="row center">
       <h4 class="header col s12 bold">Your Final Certifcate Preview</h4>
     </div>
-      <!-- <div class="col s12 m4 l2"><p>s12 m4</p></div> -->
-      <div id="target" class="col s12 m4 l8">
-       
-      </div>
-      <button id="btn-1" class="btn waves-effect waves-light" type="submit" name="action">
-        Download All
-      </button>
+    <!-- <div class="col s12 m4 l2"><p>s12 m4</p></div> -->
+    <div id="target" class="col s12 m4 l8">
+
+    </div>
+    <button id="btn-1" class="btn waves-effect waves-light" type="submit" name="action">
+      Download All
+    </button>
   </div>
   </div>
-    <script src="/js/materialize.js"></script>
+  <script src="/js/materialize.js"></script>
   <script src="/js/init.js"></script>
   <script>
-    window.addEventListener('DOMContentLoaded',(e)=>{
-      const file=localStorage.getItem('file');
-      const len=localStorage.getItem('length');
-      console.log(file,len);
-      let output='';
-      for(let i=0;i<len;i++){
-        output+=`
+    window.addEventListener('DOMContentLoaded', (e) => {
+      const file = localStorage.getItem('file');
+      const len = localStorage.getItem('length');
+      console.log(file, len);
+      let output = '';
+      for (let i = 0; i < len; i++) {
+        output += `
         <img src=/final/${file}/${i}.png class=\"responsive-img\">
         <button id=final/${file}/${i}.png class="btn waves-effect waves-light gg" type="submit" name="action">Download</button>
         `;
       }
-      document.getElementById('target').innerHTML=output;
+      document.getElementById('target').innerHTML = output;
 
-      document.querySelector('.gg').addEventListener('click',(e)=>{
-        const id=e.target.id.split('/').splice(2,1);
-        const no=e.target.id.split('/').splice(3,1);
-        console.log(...id,no);
-        fetch(`/api/${id[0]}-${no[0]}`).then((dd)=>{
-          console.log(dd);
-        }).catch((err)=>{
-          console.log(err);
+      document.querySelectorAll('.gg').forEach((data) => {
+        data.addEventListener('click', (e) => {
+          const id = e.target.id.split('/').splice(2, 1);
+          const no = e.target.id.split('/').splice(3, 1);
+          window.open(`/api/${id[0]}-${no[0]}`);
         })
       })
     })
   </script>
+
 </html>
