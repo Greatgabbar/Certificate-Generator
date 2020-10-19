@@ -73,6 +73,11 @@
         })
       })
     })
+    document.getElementById('btn-1').addEventListener('click',(e)=>{
+      const file=localStorage.getItem('file');
+      const id = file.split('/');
+      window.open(`/api/all/${id[1]}`);
+    })
   </script>
 
 </html>
