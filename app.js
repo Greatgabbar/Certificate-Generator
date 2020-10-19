@@ -5,7 +5,10 @@ const path = require('path');
 const Jimp = require('jimp');
 const bodyParser = require('body-parser');
 const csv = require('csvtojson');
+const fs=require('fs');
 const { createDecipher } = require('crypto');
+const admZip=require('adm-zip');
+const { Z_PARTIAL_FLUSH } = require('zlib');
 
 // Init app
 const app = express();
@@ -111,6 +114,25 @@ app.get('/final', (req, res) => {
   res.render('final');
 })
 
+app.get('/api/all/:name',(req,res)=>{
+  const filename=req.params.name;
+  // console.log(filename)
+  const zip=new admZip();
+  const upload=fs.readdirSync(`./public/final/uploads/${filename}`);
+  for(let i=0;i < upload.length; i++){
+    zip.addLocalFile(`./public/final/uploads/${filename}/${upload[i]}`);
+  }
+
+  const data=zip.toBuffer();
+  // zip.writeZip('./public/final-zip');
+
+  res.set('Content-Type','application/octet-stream');
+  res.set('Content-Disposition',`attachment; filename=\`GG.zip\``);
+  res.set('Content-Length',data.length);
+  res.send(data);
+
+})
+
 String.prototype.replaceAt = function(index, replacement) {
   return this.substr(0, index) + replacement + this.substr(index + replacement.length);
 }
@@ -129,9 +151,7 @@ app.get('/api/:name',(req,res)=>{
   });
 })
 
-app.get('/hello', (req, res) => {
-  res.render('hello');
-})
+
 
 const port = 3000;
 
