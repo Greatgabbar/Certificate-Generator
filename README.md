@@ -19,26 +19,37 @@
 
 ## 💻 About the project
 
-- <p style="color: red;"><!-- Put a brief summary of the project here --></p>
+- <p style="color: red;">Basically it is a Certificate Generator. In which user upload csv and template of certificate and then select the area on the template where here he/she want to add data like Name , Position etc and after that we will give them the certificates and there are two option to download the certificate
+- We can download them by downloading each certificate 
+ 
+ <p style="center">OR</p>
+
+- We can download them by just clicking download all and we  got zip file in which we have our certificates
+</p>
 
 ## 🚀 Technologies
 
-- <!-- Put each technology here, start each line with an "-" because of the style ->
+- NodeJS
+- Ejs
+- Materialize
+- jimp
+- JCrop
 
 ## 💻 Getting started
 
--a <!-- Here you can put how to setup your application
+-Just clone the project start the server and enjoy <!-- Here you can put how to setup your application-->
 
 ### Requirements
 
-- <!-- put each requirement here -->
+- Null<!-- put each requirement here -->
 
 **Clone the project and access the folder**
 
 <!-- you can put the commands inside the three grave accents -->
 
 ```bash
-
+$ git clone https://github.com/Greatgabbar/vithack.git
+$ cd vithack
 ```
 
 **Follow the steps below**
@@ -46,7 +57,8 @@
 <!-- you can put the commands inside the three grave accents -->
 
 ```bash
-
+npm i
+node app.js
 ```
 
 ## 🤔 How to contribute
