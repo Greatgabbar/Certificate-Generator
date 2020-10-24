@@ -1,4 +1,4 @@
-<%- include('partial/header', {title: "Final Certi"}) %>
+<%- include('partials/header', {title: "Final Certi"}) %>
 
 	<div class="section no-pad-bot" id="index-banner">
 		<div class="container">
@@ -100,9 +100,9 @@
 				const datal = await res.json();
 				localStorage.setItem('file',datal.file);
 				localStorage.setItem('length',datal.len);
-				await window.location.replace("/final");
+				location.href = '/final';
 			})
 		})
 	</script>
 
-<%- include('partial/footer') %>
+<%- include('partials/footer') %>
