@@ -37,7 +37,8 @@
 
 ## 💻 Getting started
 
--Just clone the project start the server and enjoy <!-- Here you can put how to setup your application-->
+-Just clone the project start the server and enjoy
+-Quick Demo at https://rocky-coast-52940.herokuapp.com/<!-- Here you can put how to setup your application-->
 
 ### Requirements
 
